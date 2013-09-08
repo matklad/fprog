@@ -1,6 +1,7 @@
 let rec f n =
-    if n = 0 then 1.0 else
-    1.0 +. 1.0 /. f (pred n)
+    if n = 0
+    then 1.0
+    else 1.0 +. 1.0 /. f (pred n)
 ;;
 
 let b n =
@@ -20,17 +21,20 @@ let sumsin n =
 
 let sumfact n =
     let rec aux acc prod k =
-        if k = n + 2 then acc else
-        aux (acc + prod) (prod * k) (succ k)
+        if k = n + 2
+        then acc
+        else aux (acc + prod) (prod * k) (succ k)
     in
     aux 0 1 2
 ;;
 
 let nseq n =
     let rec aux m n =
-        if n < 0 || m < 0 then 0 else
-        if n = 0 then 1 else
-        aux (m - 1) n + aux (m - 1) (n - m)
+        if n < 0 || m < 0
+        then 0
+        else if n = 0
+             then 1
+             else aux (m - 1) n + aux (m - 1) (n - m)
     in
     aux n n
 ;;

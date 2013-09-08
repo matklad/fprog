@@ -19,9 +19,11 @@ let rec gcd a b = if a = 0 then b else gcd (b mod a) a
 
 let c n =
     let rec aux g m n =
-        if n < 0 || m < 0 then 0 else
-        if n = 0 then 1 else
-        aux g (m - 1) n + (if gcd m g = 1 then aux (g * m) (m - 1) (n - m) else 0)
+        if n < 0 || m < 0
+        then 0
+        else if n = 0
+             then 1
+             else aux g (m - 1) n + (if gcd m g = 1 then aux (g * m) (m - 1) (n - m) else 0)
     in
     aux 1 n n
 
