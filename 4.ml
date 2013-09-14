@@ -51,21 +51,21 @@ sum (4, 2) =(
 sum (3, 3) =)
 *)
 
-let mk_graph ls = let
-  n = L.length ls
-  in let rec constraints i =
-    let x = L.nth ls i
-    in L.concat (L.mapi (fun j el -> if (i < j && x >= el) || (i > j && x <= el)
-                                then [j]
-                                else []) ls)
+let mk_graph ls =
+  let  n = L.length ls in
+  let rec constraints i =
+    let x = L.nth ls i in
+    L.concat (L.mapi (fun j el -> if (i < j && x >= el) || (i > j && x <= el)
+                       then [j]
+                       else []) ls)
   in A.init n constraints
 ;;
 
 exception CycleConstraint
-let mk_components ls graph = let
-  n = L.length ls
-  in let values = A.make n 0
-  in let rec dfs m v =
+let mk_components ls graph =
+  let n = L.length ls in
+  let values = A.make n 0 in
+  let rec dfs m v =
     if values.(v) = m
     then ()
     else if values.(v) = -m
@@ -74,7 +74,7 @@ let mk_components ls graph = let
     then
       begin
         values.(v) <- m;
-        L.iter (fun el -> dfs ~-m el) graph.(v)
+        L.iter (dfs ~-m) graph.(v)
       end
     else failwith "impossible happend!"
   in
@@ -83,39 +83,39 @@ let mk_components ls graph = let
 ;;
 
 let condense ls = A.of_list @@ L.map
-    (fun x -> (count ls x, count ls (~-x)))
-    (nub @@ L.map abs ls)
+                      (fun x -> (count ls x, count ls (~-x)))
+                      (nub @@ L.map abs ls)
 ;;
 
-let parts2 ls = let n = L.length ls
-  in
+let parts2 ls =
+  let n = L.length ls in
   if n mod 2 = 1
   then false
   else
     let graph = mk_graph ls
     in
     try
-      let components = mk_components ls graph
-      in let condensed = condense components
-      in let h = Hashtbl.create (n * n);
+      let components = mk_components ls graph in
+      let condensed = condense components in
+      let h = Hashtbl.create (n * n) in
       (*
          0 <= i <= n, 0 <= r <= n, 0 <= l <= n
          so it looks like n^^3 but it's n ^^ 2
          because for each i (l + r) is fixed
       *)
-      in let rec f i l r = if i = A.length condensed
+      let rec f i l r = if i = A.length condensed
         then if l = 0 && r = 0
           then true
           else false
-        else let key = (i, l, r)
-          in
+        else
+          let key = (i, l, r) in
           begin
             if Hashtbl.mem h key
             then ()
             else
-              let (a, b) = condensed.(i)
-              in let value = f (succ i) (l - a) (r - b)
-                             || f (succ i) (l - b) (r - a)
+              let (a, b) = condensed.(i) in
+              let value = f (succ i) (l - a) (r - b)
+                          || f (succ i) (l - b) (r - a)
               in
               Hashtbl.add h key value
           end;
@@ -141,7 +141,6 @@ let rec r_list n = if n = 0 then [] else (Random.int 9000)::r_list (n-1);;
 
 Random.self_init ();;
 for i = 1 to 10000 do
-  let l = r_list 8
-  in
+  let l = r_list 8 in
   assert (parts2_bf l = parts2 l)
 done
