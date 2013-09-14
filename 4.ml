@@ -140,8 +140,6 @@ let parts2_bf ls = let rec
 let rec r_list n = if n = 0 then [] else (Random.int 9000)::r_list (n-1);;
 
 Random.self_init ();;
-
-let rec desc n = if n = 0 then [] else n::desc (n-1);;
 for i = 1 to 10000 do
   let l = r_list 8
   in
