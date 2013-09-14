@@ -40,14 +40,15 @@ V    0  1  2  3  4  5
    0  1  2  3  4  5
    x  x !x  y !y  z
 
-   (1, 0)
-   (1, 1)
-   (2, 1) <-->
+    (1, 0)
+    (1, 1)
+    (2, 1) <-->
+sum (4, 2) =(
 
     (1, 0)
     (1, 1)
     (1, 2)
-sum (3, 3) win!
+sum (3, 3) =)
 *)
 
 let mk_graph ls = let
@@ -85,11 +86,6 @@ let condense ls = A.of_list @@ L.map
     (fun x -> (count ls x, count ls (~-x)))
     (nub @@ L.map abs ls)
 ;;
-
-let pt = function (a, b, c) -> print_int a; print_string " ";
-  print_int b; print_string " ";
-  print_int c; print_string " ";
-  print_newline ();;
 
 let parts2 ls = let n = L.length ls
   in
