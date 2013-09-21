@@ -16,9 +16,9 @@ let cubeTable n = List.init n (fun i -> let x = succ i in (x, x*x*x))
 assert(cubeTable 4 =  [(1, 1); (2, 8); (3, 27); (4, 64)]);;
 
 let minsum ls =
-  let pairs = List.zip_exn (List.take ls @@ List.length ls - 1) (List.tl_exn ls) in
-  let f (a, b) = a + b
-  in List.map pairs ~f |> List.reduce_exn ~f:min
+  let init = List.take ls @@ List.length ls - 1 in
+  let tail = List.tl_exn ls in
+  List.map2_exn init tail ~f:(+) |> List.reduce_exn ~f:min
 ;;
 assert(minsum [1; 8; 3; 2; 7] = 5);;
 
