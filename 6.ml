@@ -23,7 +23,7 @@ let minsum ls =
 assert(minsum [1; 8; 3; 2; 7] = 5);;
 
 
-type 'a tree = Empty | Node of 'a * ('a tree) * ('a tree)
+type 'a tree = Empty | Node of 'a * 'a tree * 'a tree
 ;;
 
 let rec height = function
@@ -33,7 +33,7 @@ let rec height = function
 assert(height (Node (1, Empty, Empty)) = 0);
 assert(height (Node (1, (Node (1, Empty, Empty)), Empty)) = 1);;
 
-type 'a queue = Queue of ('a list) * ('a list);;
+type 'a queue = Queue of 'a list * 'a list;;
 
 let enqueue el (Queue (e, d)) = Queue (el::e, d)
 ;;
