@@ -1,4 +1,4 @@
-module main;
+module task8;
 
 import std.stdio;
 import std.algorithm;
