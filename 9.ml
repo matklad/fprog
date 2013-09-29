@@ -24,7 +24,7 @@ assert(countOdd  [2; 3; 4; 8; 5; 33; 9] = 4);
 assert(countOdd1 [2; 3; 4; 8; 5; 33; 9] = 4)
 ;;
 let myfoldl f init ls =
-  let g x fn = fun y -> f y x |> fn in
+  let g x fn y = f y x |> fn in
   init |> List.fold_right ~f:g ~init:Fn.id ls
 ;;
 assert(myfoldl ((+)) 0 [1; 2; 3] = 6);
